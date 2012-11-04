@@ -1,0 +1,12 @@
+# FOLDERS #
+###########
+nbproject/
+dist/
+build/
+
+
+# FILES #
+#########
+build.xml
+manifest.mf
+*.directory
