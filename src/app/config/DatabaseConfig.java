@@ -5,7 +5,7 @@
 
 package app.config;
 
-import core.LinkedArray;
+import core.dataManipulation.LinkedArray;
 
 /**
  *
@@ -15,13 +15,13 @@ import core.LinkedArray;
 public abstract class DatabaseConfig {
 	
 	private static LinkedArray config = new LinkedArray();
-	
+
 	public static LinkedArray getConfig() {
-		config.add("user",		"root");
+		config.add("user",	"root");
 		config.add("password",	"");
-		config.add("database",	"");
+		config.add("database",	"cashControl");
 		config.add("driver",	"com.mysql.jdbc.Driver");
-		config.add("url",		"jdbc:mysql://localhost/"); // Without DB name!
+		config.add("url",	"jdbc:mysql://localhost/"); // Without DB name!
 		
 		return config;
 	}

@@ -3,7 +3,10 @@
  * and open the template in the editor.
  */
 
-package core;
+package core.mvc;
+
+import core.dataManipulation.LinkedArray;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -84,6 +87,14 @@ public abstract class View extends javax.swing.JFrame {
 		catch (javax.swing.UnsupportedLookAndFeelException ex) {
 			java.util.logging.Logger.getLogger(view).log(java.util.logging.Level.SEVERE, null, ex);
 		}
+	}
+	
+	public void message(String text) {
+		JOptionPane.showMessageDialog(null, text);
+	}
+	
+	public String input(String message) {
+		return JOptionPane.showInputDialog(null, message);
 	}
 	
 }

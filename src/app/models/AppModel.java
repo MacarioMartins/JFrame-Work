@@ -5,13 +5,13 @@
 
 package app.models;
 
-import core.Model;
+import core.modelTypes.HasNothing;
 
 /**
  *
  * @author Macário Martins <macariomartinsjunior@gmail.com>
  *
  */
-public class AppModel extends Model {
+public class AppModel extends HasNothing {
 	
 }

@@ -7,7 +7,7 @@
  * 
  */
 
-package core;
+package core.dataManipulation;
 
 import app.config.DatabaseConfig;
 import java.sql.*;
@@ -28,6 +28,7 @@ public class Database {
 	private String database;
 	private String driver;
 	private String url;	
+	private String primaryKey = "id";
 	
 	private Database() {
 		if ( ! dbConfigured)
@@ -39,13 +40,13 @@ public class Database {
 		}
 	
 		catch (ClassNotFoundException exception) {
-			System.out.println("Class not found exception!");
+			System.out.println("Exception! Class \"" + driver + "\" not found!");
 			System.out.println(exception.getMessage());
 			connection = null;
 		}
 	
 		catch (SQLException exception) {
-			System.out.println("SQL Exception. Failed to execute SQL query!");
+			System.out.println("SQL Exception. Failed to execute SQL query! Connection fail!");
 			System.out.println(exception.getMessage());
 			connection = null;
 		}
@@ -64,13 +65,13 @@ public class Database {
 		}
 	
 		catch (ClassNotFoundException exception) {
-			System.out.println("Class not found exception!");
+			System.out.println("Exception! Class \"" + driver + "\" not found!");
 			System.out.println(exception.getMessage());
 			connection = null;
 		}
 	
 		catch (SQLException exception) {
-			System.out.println("SQL Exception. Failed to execute SQL query!");
+			System.out.println("SQL Exception. Failed to execute SQL query! Connection fail!");
 			System.out.println(exception.getMessage());
 			connection = null;
 		}
@@ -126,6 +127,10 @@ public class Database {
 		this.url = url;
 	}
 	
+	public void setPrimaryKey(String primaryKey) {
+		this.primaryKey = primaryKey;
+	}
+	
 	public LinkedArray select(String table, ArrayList<String> fields, String complement) {
 		String sql;
 		String fieldsList = "";
@@ -140,48 +145,43 @@ public class Database {
 		try {
 			Statement statement = connection.createStatement();
 			ResultSet results	= statement.executeQuery(sql);
-			LinkedArray values;
+			LinkedArray values	= new LinkedArray();
 			int i, j, fieldsNum;
-				
+			
 			if (fields.size() == 1 && fields.get(0).equals("*")) {
-				
-				try {	
+				try {
 					ResultSetMetaData meta = results.getMetaData();
 					fieldsNum	= meta.getColumnCount();
 					fields		= new ArrayList<String>();
 					
 					for (i = 1; i <= fieldsNum; i++)
 						fields.add(meta.getColumnName(i));
-					
 				}
 				catch (SQLException exception) {
-					System.out.println("SQL Exception. Failed to execute SQL query!");
+					System.out.println("SQL Exception. Failed to execute SQL query! When using " + table + " table.");
 					System.out.println(exception.getMessage());
-					fieldsNum = 0;
 				}
-				
 			}
 			
-			values = new LinkedArray();
 			for (i = 0; results.next(); i++) {
 				LinkedArray tmp = new LinkedArray();
 				for (j = 0; j < fields.size(); j++) {
 					String key = fields.get(j);
-					if (key.equals("id"))
+					if (key.equals(primaryKey))
 						tmp.add(key, Integer.parseInt(results.getString(key)));
 					else
 						tmp.add(key, results.getString(key));
 				}
 				values.add(i, tmp);
 			}
-				
+			
 			results.close();
 			statement.close();
 			return values;
 		}
 		
 		catch (SQLException exception) {
-			System.out.println("SQL Exception. Failed to execute SQL query!");
+			System.out.println("SQL Exception. Failed to execute SQL query! When using " + table + " table.");
 			System.out.println("SQL: " + sql);
 			System.out.println(exception.getMessage());
 		}
@@ -206,7 +206,7 @@ public class Database {
 		}
 		
 		catch (SQLException exception) {
-			System.out.println("SQL Exception. Failed to execute SQL query!");
+			System.out.println("SQL Exception. Failed to execute SQL query! When using " + table + " table.");
 			System.out.println(exception.getMessage());
 		}
 				
@@ -229,7 +229,7 @@ public class Database {
 		}
 		
 		catch (SQLException exception) {
-			System.out.println("SQL Exception. Failed to execute SQL query!");
+			System.out.println("SQL Exception. Failed to execute SQL query! When using " + table + " table.");
 			System.out.println(exception.getMessage());
 		}
 				
@@ -246,7 +246,7 @@ public class Database {
 			return true;
 		}
 		catch (SQLException exception) {
-			System.out.println("SQL Exception. Failed to execute SQL query!");
+			System.out.println("SQL Exception. Failed to execute SQL query! When using " + table + " table.");
 			System.out.println(exception.getMessage());
 		}
 		

@@ -5,7 +5,7 @@
 
 package app.views;
 
-import core.View;
+import core.mvc.View;
 
 /**
  *
@@ -13,6 +13,10 @@ import core.View;
  *
  */
 public class AppView extends View {
+	
+	public AppView() {
+//		setLookAndFeel("Nimbus");
+	}
 	
 	@Override
 	public void run() {}
