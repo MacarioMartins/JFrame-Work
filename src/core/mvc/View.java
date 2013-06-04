@@ -6,6 +6,8 @@
 package core.mvc;
 
 import core.dataManipulation.LinkedArray;
+import java.net.URI;
+import java.net.URL;
 import javax.swing.JOptionPane;
 
 /**
@@ -96,5 +98,10 @@ public abstract class View extends javax.swing.JFrame {
 	public String input(String message) {
 		return JOptionPane.showInputDialog(null, message);
 	}
+    
+    public String convertAddress(String address) {
+        return controller.convertAddress(address);
+    }
+    
 	
 }

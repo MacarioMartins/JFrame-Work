@@ -19,7 +19,7 @@ public abstract class DatabaseConfig {
 	public static LinkedArray getConfig() {
 		config.add("user",	"root");
 		config.add("password",	"");
-		config.add("database",	"cashControl");
+		config.add("database",	"");
 		config.add("driver",	"com.mysql.jdbc.Driver");
 		config.add("url",	"jdbc:mysql://localhost/"); // Without DB name!
 		

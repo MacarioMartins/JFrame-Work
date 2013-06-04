@@ -9,6 +9,7 @@ import core.components.ComponentsManager;
 import core.dataManipulation.LinkedArray;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URL;
 import javax.swing.JOptionPane;
 
 /**
@@ -227,4 +228,14 @@ public abstract class Controller {
 	public String input(String message) {
 		return JOptionPane.showInputDialog(message);
 	}
+    
+    public String convertAddress(String address) {
+        String separator = (String) System.getProperties().get("file.separator");
+        return separator + address.replace("->", separator);
+    }
+    
+    public URL getResource(String url) {
+        return getClass().getResource(convertAddress(url));
+    }
+    
 }
